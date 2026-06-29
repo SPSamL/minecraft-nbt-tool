@@ -25,7 +25,14 @@ Start the local browser UI:
 dotnet run -- serve "path\to\blueprints" --port 5055
 ```
 
-When using the browser UI, enter a local folder path (or `|` separated file paths) in the `Local folder or file` field.
+When using the browser UI, you can either paste a GitHub folder URL manually or use the `Theme URL preset` selector for common sources:
+
+- StyleColonies: https://github.com/ldtteam/stylecolonies/tree/release/main/src/main/resources/blueprints/stylecolonies
+- MineColonies: https://github.com/ldtteam/minecolonies/tree/version/main/src/main/resources/blueprints/minecolonies
+
+You can also enter a local folder path (or `|` separated file paths) in the `Local folder or file` field.
+
+When a selected source looks like a multi-theme root (including the two built-in presets), the UI defers the full blueprint scan and first prompts you to select one or more styles. This avoids loading all themes up front.
 
 Optional filters:
 
@@ -75,6 +82,48 @@ macOS Apple Silicon:
 ```bash
 dotnet publish -c Release -r osx-arm64 -o out/osx-arm64
 ```
+
+## GitHub Packages publishing
+
+The GitHub Actions workflow `.github/workflows/build-cross-platform.yml` publishes zipped executables to GitHub Packages (GHCR) as OCI artifacts when builds run on `main` (and on manual dispatch).
+
+Package name:
+
+```text
+ghcr.io/<owner>/minecraft-nbt-tool
+```
+
+Tags created per platform:
+
+- `<rid>-<commitSha>` (for example `win-x64-<sha>`)
+- `<rid>-latest` (updated on `main`)
+
+To pull a package with ORAS:
+
+```bash
+oras pull ghcr.io/<owner>/minecraft-nbt-tool:win-x64-latest
+```
+
+The pulled artifact is a zip containing the executable and `README.md`.
+
+## GitHub Releases on version tags
+
+The workflow `.github/workflows/release-on-tag.yml` builds all supported platform binaries and publishes zip assets to a GitHub Release.
+
+Trigger it by pushing a version tag such as:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Release assets include:
+
+- `mc-nbt-tool-<version>-win-x64.zip`
+- `mc-nbt-tool-<version>-linux-x64.zip`
+- `mc-nbt-tool-<version>-linux-arm64.zip`
+- `mc-nbt-tool-<version>-osx-x64.zip`
+- `mc-nbt-tool-<version>-osx-arm64.zip`
 
 ## Notes
 

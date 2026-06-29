@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mc-nbt-tool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1bee078cc0388aade14c011559025c7e6e5f33b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("mc-nbt-tool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mc-nbt-tool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

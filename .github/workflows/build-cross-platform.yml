@@ -1,0 +1,99 @@
+name: Build Cross-Platform Executables
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Publish ${{ matrix.rid }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+            executable: mc-nbt-tool.exe
+          - os: ubuntu-latest
+            rid: linux-x64
+            executable: mc-nbt-tool
+          - os: ubuntu-latest
+            rid: linux-arm64
+            executable: mc-nbt-tool
+          - os: macos-latest
+            rid: osx-x64
+            executable: mc-nbt-tool
+          - os: macos-latest
+            rid: osx-arm64
+            executable: mc-nbt-tool
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore mc-nbt-tool.csproj
+
+      - name: Publish
+        run: dotnet publish mc-nbt-tool.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish/${{ matrix.rid }}
+
+      - name: Prepare executable artifact
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path "artifact/${{ matrix.rid }}" -Force | Out-Null
+          Copy-Item "publish/${{ matrix.rid }}/${{ matrix.executable }}" "artifact/${{ matrix.rid }}/${{ matrix.executable }}" -Force
+          Copy-Item "README.md" "artifact/${{ matrix.rid }}/README.md" -Force
+
+      - name: Upload executable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc-nbt-tool-${{ matrix.rid }}
+          path: artifact/${{ matrix.rid }}
+          if-no-files-found: error
+
+      - name: Setup ORAS
+        if: github.event_name != 'pull_request'
+        uses: oras-project/setup-oras@v1
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | oras login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Publish executable package to GitHub Packages
+        if: github.event_name != 'pull_request'
+        shell: pwsh
+        run: |
+          $packageName = "ghcr.io/${{ github.repository_owner }}/minecraft-nbt-tool"
+          $versionTag = "${{ matrix.rid }}-${{ github.sha }}"
+          $latestTag = "${{ matrix.rid }}-latest"
+          $zipPath = "artifact/mc-nbt-tool-${{ matrix.rid }}.zip"
+
+          Compress-Archive -Path "artifact/${{ matrix.rid }}/*" -DestinationPath $zipPath -Force
+
+          oras push "$packageName:$versionTag" `
+            --artifact-type "application/vnd.minecraft-nbt-tool.binary" `
+            --annotation "org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}" `
+            --annotation "org.opencontainers.image.description=mc-nbt-tool executable for ${{ matrix.rid }}" `
+            "$zipPath:application/zip"
+
+          if ("${{ github.ref_name }}" -eq "main") {
+            oras push "$packageName:$latestTag" `
+              --artifact-type "application/vnd.minecraft-nbt-tool.binary" `
+              --annotation "org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}" `
+              --annotation "org.opencontainers.image.description=mc-nbt-tool executable for ${{ matrix.rid }} (latest)" `
+              "$zipPath:application/zip"
+          }
