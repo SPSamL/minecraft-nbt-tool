@@ -9,20 +9,58 @@ CLI scanner for Minecraft NBT-style blueprint files. It reads binary NBT and SNB
 
 ## Usage
 
-```bash
+PowerShell:
+
+```powershell
 dotnet run -- scan "path\to\blueprints" --output report.json
+```
+
+Bash:
+
+```bash
+dotnet run -- scan "path/to/blueprints" --output report.json
 ```
 
 Export CSV reports:
 
-```bash
+PowerShell:
+
+```powershell
 dotnet run -- scan "path\to\blueprints" --csv out\minecolonies
+```
+
+Bash:
+
+```bash
+dotnet run -- scan "path/to/blueprints" --csv out/minecolonies
 ```
 
 Start the local browser UI:
 
-```bash
+PowerShell:
+
+```powershell
 dotnet run -- serve "path\to\blueprints" --port 5055
+```
+
+Bash:
+
+```bash
+dotnet run -- serve "path/to/blueprints" --port 5055
+```
+
+From VS Code integrated terminal (in the project root):
+
+PowerShell:
+
+```powershell
+dotnet run -- serve . --port 5055
+```
+
+Bash:
+
+```bash
+dotnet run -- serve . --port 5055
 ```
 
 When using the browser UI, you can either paste a GitHub folder URL manually or use the `Theme URL preset` selector for common sources:
@@ -36,8 +74,16 @@ When a selected source looks like a multi-theme root (including the two built-in
 
 Optional filters:
 
-```bash
+PowerShell:
+
+```powershell
 dotnet run -- scan "path\to\blueprints" --style acacia --building composter --level 1
+```
+
+Bash:
+
+```bash
+dotnet run -- scan "path/to/blueprints" --style acacia --building composter --level 1
 ```
 
 ## Supported files
@@ -55,7 +101,7 @@ Create self-contained single-file builds:
 
 Windows x64:
 
-```bash
+```powershell
 dotnet publish -c Release -r win-x64 -o out/win-x64
 ```
 
@@ -100,6 +146,14 @@ Tags created per platform:
 
 To pull a package with ORAS:
 
+PowerShell:
+
+```powershell
+oras pull ghcr.io/<owner>/minecraft-nbt-tool:win-x64-latest
+```
+
+Bash:
+
 ```bash
 oras pull ghcr.io/<owner>/minecraft-nbt-tool:win-x64-latest
 ```
@@ -111,6 +165,15 @@ The pulled artifact is a zip containing the executable and `README.md`.
 The workflow `.github/workflows/release-on-tag.yml` builds all supported platform binaries and publishes zip assets to a GitHub Release.
 
 Trigger it by pushing a version tag such as:
+
+PowerShell:
+
+```powershell
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Bash:
 
 ```bash
 git tag v1.0.0
