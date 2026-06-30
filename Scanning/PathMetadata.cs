@@ -1,6 +1,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
+namespace minecraft_nbt_tool.Scanning;
+
 /// <summary>
 /// Extracts style, building type, and level metadata from paths and filenames.
 /// </summary>

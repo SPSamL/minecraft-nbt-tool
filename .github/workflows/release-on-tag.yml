@@ -19,19 +19,19 @@ jobs:
         include:
           - os: windows-latest
             rid: win-x64
-            executable: mc-nbt-tool.exe
+            executable: minecraft-nbt-tool.exe
           - os: ubuntu-latest
             rid: linux-x64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
           - os: ubuntu-latest
             rid: linux-arm64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
           - os: macos-latest
             rid: osx-x64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
           - os: macos-latest
             rid: osx-arm64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
 
     steps:
       - name: Checkout
@@ -43,21 +43,21 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore mc-nbt-tool.csproj
+        run: dotnet restore minecraft-nbt-tool.csproj
 
       - name: Publish
-        run: dotnet publish mc-nbt-tool.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish/${{ matrix.rid }}
+        run: dotnet publish minecraft-nbt-tool.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish/${{ matrix.rid }}
 
       - name: Package release zip
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path dist -Force | Out-Null
           $version = if ("${{ github.ref_type }}" -eq "tag") { "${{ github.ref_name }}" } else { "manual-${{ github.run_number }}" }
-          $packageRoot = "dist/mc-nbt-tool-${{ matrix.rid }}"
+          $packageRoot = "dist/minecraft-nbt-tool-${{ matrix.rid }}"
           New-Item -ItemType Directory -Path $packageRoot -Force | Out-Null
           Copy-Item "publish/${{ matrix.rid }}/${{ matrix.executable }}" "$packageRoot/${{ matrix.executable }}" -Force
           Copy-Item "README.md" "$packageRoot/README.md" -Force
-          Compress-Archive -Path "$packageRoot/*" -DestinationPath "dist/mc-nbt-tool-$version-${{ matrix.rid }}.zip" -Force
+          Compress-Archive -Path "$packageRoot/*" -DestinationPath "dist/minecraft-nbt-tool-$version-${{ matrix.rid }}.zip" -Force
 
       - name: Upload packaged artifact
         uses: actions/upload-artifact@v4
@@ -85,11 +85,11 @@ jobs:
         run: |
           if [ "${{ github.ref_type }}" = "tag" ]; then
             echo "tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
-            echo "name=mc-nbt-tool ${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+            echo "name=minecraft-nbt-tool ${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
             echo "prerelease=false" >> "$GITHUB_OUTPUT"
           else
             echo "tag=manual-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
-            echo "name=mc-nbt-tool manual-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+            echo "name=minecraft-nbt-tool manual-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
           fi
 

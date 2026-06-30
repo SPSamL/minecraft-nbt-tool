@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>mc_nbt_tool</RootNamespace>
+    <RootNamespace>minecraft_nbt_tool</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RuntimeIdentifiers>win-x64;linux-x64;linux-arm64;osx-x64;osx-arm64</RuntimeIdentifiers>
@@ -14,6 +14,15 @@
 
   <ItemGroup>
     <PackageReference Include="SharpNBT" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="BlueprintScanner.cs" />
+    <Compile Remove="BlueprintWebServer.cs" />
+    <Compile Remove="CommandLine.cs" />
+    <Compile Remove="CsvExporter.cs" />
+    <Compile Remove="Models.cs" />
+    <Compile Remove="ScanInputResolver.cs" />
   </ItemGroup>
 
 </Project>

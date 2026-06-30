@@ -1,4 +1,4 @@
-# mc-nbt-tool
+# minecraft-nbt-tool
 
 CLI scanner for Minecraft NBT-style blueprint files. It reads binary NBT and SNBT, extracts block usage, and groups the output by style, building type, and level.
 
@@ -182,11 +182,11 @@ git push origin v1.0.0
 
 Release assets include:
 
-- `mc-nbt-tool-<version>-win-x64.zip`
-- `mc-nbt-tool-<version>-linux-x64.zip`
-- `mc-nbt-tool-<version>-linux-arm64.zip`
-- `mc-nbt-tool-<version>-osx-x64.zip`
-- `mc-nbt-tool-<version>-osx-arm64.zip`
+- `minecraft-nbt-tool-<version>-win-x64.zip`
+- `minecraft-nbt-tool-<version>-linux-x64.zip`
+- `minecraft-nbt-tool-<version>-linux-arm64.zip`
+- `minecraft-nbt-tool-<version>-osx-x64.zip`
+- `minecraft-nbt-tool-<version>-osx-arm64.zip`
 
 ## Notes
 

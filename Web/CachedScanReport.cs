@@ -1,3 +1,5 @@
+using minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Represents a cached scan report entry with fingerprint and validation timing.
 /// </summary>

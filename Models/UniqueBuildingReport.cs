@@ -1,3 +1,5 @@
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Unique block counts grouped by building type.
 /// </summary>

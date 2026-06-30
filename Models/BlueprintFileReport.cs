@@ -1,3 +1,5 @@
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Represents per-file scan output including grouped metadata and block counts.
 /// </summary>

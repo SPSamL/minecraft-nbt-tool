@@ -1246,7 +1246,7 @@ if (document.readyState === 'loading') {
         if (normalizedFormat == "csv")
         {
             var csv = BuildExportCsv(filteredFiles);
-            response.AddHeader("Content-Disposition", $"attachment; filename=\"mc-nbt-export-{timestamp}.csv\"");
+            response.AddHeader("Content-Disposition", $"attachment; filename=\"minecraft-nbt-export-{timestamp}.csv\"");
             await WriteStringAsync(response, csv, "text/csv; charset=utf-8");
             return;
         }
@@ -1265,7 +1265,7 @@ if (document.readyState === 'loading') {
             files = filteredFiles
         };
 
-        response.AddHeader("Content-Disposition", $"attachment; filename=\"mc-nbt-export-{timestamp}.json\"");
+        response.AddHeader("Content-Disposition", $"attachment; filename=\"minecraft-nbt-export-{timestamp}.json\"");
         var json = JsonSerializer.Serialize(payload, JsonOptions.Default);
         await WriteStringAsync(response, json, "application/json; charset=utf-8");
     }

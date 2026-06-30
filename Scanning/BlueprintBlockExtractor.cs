@@ -2,6 +2,9 @@
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using minecraft_nbt_tool.Models;
+
+namespace minecraft_nbt_tool.Scanning;
 
 /// <summary>
 /// Extracts normalized block records from supported blueprint data layouts.

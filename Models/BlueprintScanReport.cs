@@ -1,3 +1,5 @@
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Root result model produced by a blueprint scan.
 /// </summary>

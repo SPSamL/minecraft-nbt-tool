@@ -1,3 +1,5 @@
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Unique blocks for a single level grouping.
 /// </summary>

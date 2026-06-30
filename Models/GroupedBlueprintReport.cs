@@ -1,3 +1,5 @@
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Block counts grouped by style and then by building.
 /// </summary>

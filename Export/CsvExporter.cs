@@ -1,5 +1,8 @@
 ﻿using System.Globalization;
 using System.Text;
+using minecraft_nbt_tool.Models;
+
+namespace minecraft_nbt_tool.Export;
 
 internal static class CsvExporter
 {

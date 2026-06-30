@@ -67,10 +67,10 @@ internal static class CommandLine
         Console.WriteLine("Minecraft NBT blueprint scanner");
         Console.WriteLine();
         Console.WriteLine("Usage:");
-        Console.WriteLine("  mc-nbt-tool scan <root> [--output <file>] [--style <style>] [--building <name>] [--level <n>]");
-        Console.WriteLine("  mc-nbt-tool scan <root> [--csv <prefix>]");
-        Console.WriteLine("  mc-nbt-tool inspect <file>");
-        Console.WriteLine("  mc-nbt-tool serve <root> [--port <port>]");
+        Console.WriteLine("  minecraft-nbt-tool scan <root> [--output <file>] [--style <style>] [--building <name>] [--level <n>]");
+        Console.WriteLine("  minecraft-nbt-tool scan <root> [--csv <prefix>]");
+        Console.WriteLine("  minecraft-nbt-tool inspect <file>");
+        Console.WriteLine("  minecraft-nbt-tool serve <root> [--port <port>]");
         Console.WriteLine();
         Console.WriteLine("The scan command returns JSON grouped by style, building type, and level.");
     }

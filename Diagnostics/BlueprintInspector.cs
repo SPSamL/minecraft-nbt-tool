@@ -2,6 +2,8 @@
 using System.Reflection;
 using SharpNBT.SNBT;
 
+namespace minecraft_nbt_tool.Diagnostics;
+
 /// <summary>
 /// Provides a lightweight inspection mode for printing NBT or SNBT node structure.
 /// </summary>

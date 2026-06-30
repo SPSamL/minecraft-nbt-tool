@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 
+namespace minecraft_nbt_tool.Cli;
+
 /// <summary>
 /// Represents parsed command line arguments for the scanner application.
 /// </summary>

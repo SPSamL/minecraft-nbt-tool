@@ -1,3 +1,5 @@
+using minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Tree node used for hierarchical folder display in the web UI.
 /// </summary>

@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
 
+namespace minecraft_nbt_tool.Input;
+
 /// <summary>
 /// Resolves a GitHub tree URL to a sparse local checkout directory.
 /// </summary>
@@ -196,7 +198,7 @@ internal static class GitHubFolderMaterializer
     private static HttpClient CreateHttpClient()
     {
         var client = new HttpClient();
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("mc-nbt-tool/1.0");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("minecraft-nbt-tool/1.0");
         return client;
     }
 }

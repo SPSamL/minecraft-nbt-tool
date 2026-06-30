@@ -9,7 +9,7 @@ internal static class ScanInputResolver
 
     public static string GetCacheRoot()
     {
-        return Path.Combine(Path.GetTempPath(), "mc-nbt-tool-cache");
+        return Path.Combine(Path.GetTempPath(), "minecraft-nbt-tool-cache");
     }
 
     public static bool TryClearCache(out string message)
@@ -129,7 +129,7 @@ internal static class ScanInputResolver
     private static HttpClient CreateHttpClient()
     {
         var client = new HttpClient();
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("mc-nbt-tool/1.0");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("minecraft-nbt-tool/1.0");
         return client;
     }
 

@@ -1,5 +1,9 @@
 ﻿using SharpNBT;
 using SharpNBT.SNBT;
+using minecraft_nbt_tool.Cli;
+using minecraft_nbt_tool.Models;
+
+namespace minecraft_nbt_tool.Scanning;
 
 /// <summary>
 /// Scans blueprint inputs and produces grouped reports.

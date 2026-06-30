@@ -21,19 +21,19 @@ jobs:
         include:
           - os: windows-latest
             rid: win-x64
-            executable: mc-nbt-tool.exe
+            executable: minecraft-nbt-tool.exe
           - os: ubuntu-latest
             rid: linux-x64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
           - os: ubuntu-latest
             rid: linux-arm64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
           - os: macos-latest
             rid: osx-x64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
           - os: macos-latest
             rid: osx-arm64
-            executable: mc-nbt-tool
+            executable: minecraft-nbt-tool
 
     steps:
       - name: Checkout
@@ -45,10 +45,10 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore mc-nbt-tool.csproj
+        run: dotnet restore minecraft-nbt-tool.csproj
 
       - name: Publish
-        run: dotnet publish mc-nbt-tool.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish/${{ matrix.rid }}
+        run: dotnet publish minecraft-nbt-tool.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o publish/${{ matrix.rid }}
 
       - name: Prepare executable artifact
         shell: pwsh
@@ -60,7 +60,7 @@ jobs:
       - name: Upload executable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mc-nbt-tool-${{ matrix.rid }}
+          name: minecraft-nbt-tool-${{ matrix.rid }}
           path: artifact/${{ matrix.rid }}
           if-no-files-found: error
 
@@ -80,20 +80,20 @@ jobs:
           $packageName = "ghcr.io/${{ github.repository_owner }}/minecraft-nbt-tool"
           $versionTag = "${{ matrix.rid }}-${{ github.sha }}"
           $latestTag = "${{ matrix.rid }}-latest"
-          $zipPath = "artifact/mc-nbt-tool-${{ matrix.rid }}.zip"
+          $zipPath = "artifact/minecraft-nbt-tool-${{ matrix.rid }}.zip"
 
           Compress-Archive -Path "artifact/${{ matrix.rid }}/*" -DestinationPath $zipPath -Force
 
           oras push "$packageName:$versionTag" `
             --artifact-type "application/vnd.minecraft-nbt-tool.binary" `
             --annotation "org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}" `
-            --annotation "org.opencontainers.image.description=mc-nbt-tool executable for ${{ matrix.rid }}" `
+            --annotation "org.opencontainers.image.description=minecraft-nbt-tool executable for ${{ matrix.rid }}" `
             "$zipPath:application/zip"
 
           if ("${{ github.ref_name }}" -eq "main") {
             oras push "$packageName:$latestTag" `
               --artifact-type "application/vnd.minecraft-nbt-tool.binary" `
               --annotation "org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}" `
-              --annotation "org.opencontainers.image.description=mc-nbt-tool executable for ${{ matrix.rid }} (latest)" `
+              --annotation "org.opencontainers.image.description=minecraft-nbt-tool executable for ${{ matrix.rid }} (latest)" `
               "$zipPath:application/zip"
           }

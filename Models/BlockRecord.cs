@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Represents a normalized block identity and count.
 /// </summary>

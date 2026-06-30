@@ -1,4 +1,7 @@
 ﻿using System.Diagnostics;
+using minecraft_nbt_tool.Models;
+
+namespace minecraft_nbt_tool.Input;
 
 /// <summary>
 /// Resolves local and remote inputs into normalized scan paths.
@@ -10,7 +13,7 @@ internal static class ScanInputResolver
     /// </summary>
     public static string GetCacheRoot()
     {
-        return Path.Combine(Path.GetTempPath(), "mc-nbt-tool-cache");
+        return Path.Combine(Path.GetTempPath(), "minecraft-nbt-tool-cache");
     }
 
     /// <summary>

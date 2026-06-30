@@ -1,5 +1,7 @@
 using System.Text.Json;
 
+namespace minecraft_nbt_tool.Models;
+
 /// <summary>
 /// Shared JSON serializer configuration for exported responses and files.
 /// </summary>
